@@ -1,0 +1,135 @@
+<program> ::= <statement> | <statement> <program>
+
+<statement> ::= <declaration>
+| <assignment>
+| <conditional>
+| <function>
+| <arrow_function>
+| <function_call>
+| <outputFunc>
+| <inputFunc>
+| <import_statement>
+| <builtin_func>
+| <using_statement>
+
+<declaration> ::= <dynamic_variable_declaration> 
+| <static_variable_declaration> 
+| <const_dynamic_variable_declaration>
+| <const_static_variable_declaration> 
+
+<dynamic_variable_declaration> ::= <identifier> "=" <expression> [<semicolon>]
+<static_variable_declaration> ::= <type> <identifier>  "=" <expression> [<semicolon>]
+<const_dynamic_variable_declaration> ::= "const" <identifier> "=" <expression> [<semicolon>]
+<const_static_variable_declaration>  ::= "const" <type> <identifier>  "=" <expression> [<semicolon>]
+
+<type> ::= "int" | "bool" | "float" | "string" | "enum" | "struct" | "array" | "null" | "set"
+
+<array> ::= "[" <elements> "]"
+<elements> ::= <expression> | <expression> <comma> <elements>
+<enum> ::= "enum" <identifier> "{" <enum_value> { <comma> <enum_value> } "}"
+
+<enum_value> ::= <identifier>
+
+<struct> ::= "struct" <identifier> "{" <struct_member> { <comma> <struct_member> } "}"
+
+<struct_member> ::= <type> <identifier>
+
+<assignment> ::= <identifier> "=" <expression> [<semicolon>]
+
+<conditional> ::= <if> <lp> <expression> <rp> <block> [ <elseIf> <lp> <expression> <rp> <block> ]* [ <else> <block> ]
+
+<if> ::= "if" | "si"
+<else> ::= "else"
+<elseIf> ::= "else if" | "elseif" | "elif"
+
+<function> ::= [<def>] <identifier> <lp> [ <parameter> { <comma> <parameter> } ] <rp> <block>
+<def> ::= "function" | "def"
+
+<arrow_function> ::= [ <type> ] <identifier> <lp> [ <parameter> { <comma> <parameter> } ] <rp> <arrow> <expression>
+<arrow> ::= "=>"
+<function_call> ::= <identifier> <lp> [ <expression> { <comma> <expression> } ] <rp> [<semicolon>]
+
+<outputFunc> ::= <output> <lp> <expression> <rp> [<semicolon>]
+<output> ::= "output"
+
+<inputFunc> ::= <input> <lp> <identifier> <rp> [<semicolon>]
+<input> ::= "input"
+<builtin_func> ::= <boolean_builtin_func> | <math_builtin_func> | <bio_builtin_func>
+
+<boolean_builtin_func> ::= <isOdd_func> | <isEven_func> | <isPrime_func>
+ <isOdd_func> ::= <identifier> <dot> <isOdd> | "is" <identifier> "odd"
+ <isEven_func> ::= <identifier> <dot> <isEven> | "is" <identifier> "even"
+ <isPrime_func> ::= <identifier> <dot> <isPrime> | "is" <identifier> "prime"
+<isOdd> ::= "odd?"     
+<isEven> ::= "even?"     
+<isPrime> ::= "prime?"     
+
+<math_builtin_func> ::= <log_func> | <sin_func> | <ceil_func> | <sqrt_func>
+
+<log_func> ::= <log> <lp> <identifier> <rp>
+<log> ::= "$log" | "math.log" 
+<sin_func> ::= <sin> <lp> <identifier> <rp>
+<sin> ::= "$sin" | "math.sin" 
+<ceil_func> ::= <ceil> <lp> <identifier> <rp>
+<ceil> ::= "$ceil" | "math.ceil" 
+<sqrt_func> ::= <sqrt> <lp> <identifier> <rp>
+<sqrt> ::= "$sqrt" | "math.sqrt" 
+<bio_builtin_func> :: = "$align"  <lp> <identifier> <rp> 
+<dot> ::= "."
+<using_statement> ::= <using> <namespace> [<semicolon>] |  <using> <namespace>   
+<using> ::= "using"
+<namespace> ::= <mathNamespace> | <bioinformaticsNamespace> | <statisticsNamespace> | <mlNamespace> 
+<mathNamespace> ::= "math"
+<bioinformaticsNamespace> ::= "bioinformatics"
+<statisticsNamespace> ::= "statistics"
+<mlNamespace>  ::= "ML"
+<expression> ::= <logic_expression> [ "?" <expression> ":" <expression> ]
+
+<logic_expression> ::= <compare_expression> { <logic_op> <compare_expression> }
+
+<compare_expression> ::= <math_expression> [ <compare_op> <math_expression> ]
+
+<math_expression> ::= <term> { <add_op> <term> }
+
+<term> ::= <factor> { <mul_op> <factor> }
+
+<factor> ::= <identifier> | <constant> | <lp> <expression> <rp> | <object>
+
+<add_op> ::= <plus> | <minus>  
+<plus> ::= "+"
+<minus> ::= "-"
+<mul_op> ::= <multiply> | <devision>
+<multiply> ::= "*"
+<devision> ::= "/"
+
+<logic_op> ::= <and> | <or>
+<and> ::= "&&" | "and"
+<or> ::= "||" | "or"
+
+<compare_op> ::= <equalEqual> | <notEqual> | <lessThan> | <lessOrEqual> | <moreThan> | <moreOrEqual>
+<equalEqual> ::= "=="
+<notEqual> ::= "!="
+<lessThan> ::= "<"
+<lessOrEqual> ::= "<="
+<moreThan> ::= ">"
+<moreOrEqual> ::= ">="
+<rp> ::= ")"
+<lp> ::= "("
+<comma> ::= ","
+<identifier> ::= <letter> { <letter> | <digit> }
+
+<constant> ::= <integer_constant> | <float_constant> | <string_constant>
+
+<integer_constant> ::= <digit> { <<digit> }
+
+<float_constant> ::= <integer_constant> <dot> <integer_constant>
+
+<string_constant> ::= '"' { <character> } '"'
+
+<import_statement> ::= <import> <file_path> [<semicolon>]
+<import> ::= "import"
+<file_path> ::= <string_constant>
+<semicolon> ::= ";"
+<block> ::= "{" <program> "}"
+<comment> ::= "#" <text> | "//" <text> | "/*" <text> "/" | "(" <text> "*)"
+<object> ::= <identifier> <dot> <identifier> [ <lp> [ <expression> { <comma> <expression> } ] <rp> ]
